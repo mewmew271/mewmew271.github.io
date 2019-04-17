@@ -5,11 +5,11 @@ src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/a
 frame-ar.js"> </script> <body style="margin : 0px; overflow:
 hidden;">
 <a-scene stats embedded arjs="trackingMethod: best;"> 
-	<a-marker type='pattern' patternUrl='fire.matt'> 
+	<a-marker-camera type='pattern' url='fire.patt'>
 		<a-box position="0 1 0" material="color:blue;"> 
 		<!-- animation here -->
 		</a-box> 
-	</a-marker> 
+	</a-marker-camera> 
 	<a-entity camera></a-entity> 
 </a-scene>
 </body> 

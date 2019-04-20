@@ -1,0 +1,22 @@
+<!doctype HTML> <html>
+ <script src="aframe.min0.8.js"></script>
+<script src="aframe-extras.loaders.js"></script> <script
+src="aframe-ar.js"> </script>
+
+
+<body style="margin : 0px; overflow:hidden;">
+
+<a-scene stats embedded arjs="trackingMethod: best;"> 
+	<!-- <a-marker preset="hiro">  -->
+	<!-- <a-marker preset='custom' type='pattern' url='electric.patt' id="electric"> -->
+	<a-marker preset='custom' type='pattern' url='electric.patt'>
+		<a-box position="0 1 0" material="color:blue;" markerhandler> 
+		<!-- animation here -->		
+		</a-box> 
+	</a-marker> 
+	<a-entity camera></a-entity> 
+</a-scene>
+
+
+</body> 
+</html>

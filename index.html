@@ -1,16 +1,79 @@
-<!doctype HTML> <html> <script
-src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
-<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> <script
-src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script> <body style="margin : 0px; overflow:
-hidden;">
-<a-scene stats embedded arjs="trackingMethod: best;"> 
-	<!-- <a-marker preset="hiro">  -->
-	<a-marker-camera preset='custom' type='pattern' url='G:\uni\year 3\cross platform\week 9\cpd A r\mewmew271.github.io\electric.patt'></a-marker-camera>
-		<a-box position="0 1 0" material="color:blue;"> 
-		<!-- animation here -->
-		</a-box> 
-	</a-marker-camera> 
-	<a-entity camera></a-entity> 
-</a-scene>
-</body> 
+<!DOCTYPE html>
+<script src="aframe-ar.min.js"></script>
+<!-- include aframe-ar.js -->
+<script src="aframe-ar1.js"></script>
+<!-- Register an aframe component that allows reacting to marker events -->
+<script>
+	AFRAME.registerComponent('registerevents', {
+		init: function () {
+			var marker = this.el;
+
+			marker.addEventListener('markerFound', function() {
+				var markerId = marker.id;
+				console.log('markerFound', markerId);
+				switch(markerId) {
+				  case 'marker-hiro':
+					console.log('1');
+					break;
+				  case 'electric':
+					console.log('2');
+					break;
+				  default:
+					// code block
+				} 
+				
+				// TODO: Add your own code here to react to the marker being found.
+			});
+
+			marker.addEventListener('markerLost', function() {
+				var markerId = marker.id;
+				console.log('markerLost', markerId);
+				// TODO: Add your own code here to react to the marker being lost.
+			});
+		}
+	});
+</script>
+
+<body style='margin : 0px; overflow: hidden; font-family: Monospace;'><div style='position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;'>
+	
+
+	<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+		<!-- handle hiro marker -->
+		<!-- 'registerevents' will register event listeners for the marker when it is found and lost,
+		as defined in the inline script above -->
+		<a-marker preset='hiro' id='marker-hiro' registerevents>
+			<a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:blue;'>
+				<a-torus-knot radius='0.26' radius-tubular='0.05'>
+					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+				</a-torus-knot>
+			</a-box>
+		</a-marker>
+
+		<!-- handle matrix marker -->
+		<!-- 'emitevents' will make the marker emit events when it is found and lost
+		but, since there are no registered listeners for these events, you will not see any effect.
+		You can register event listeners in your own custom component, defined similarly to
+		the 'registerevents' in the inline script above -->
+		<a-marker type='barcode' value='5' id='marker-barcode-5'>
+			<a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:red;'>
+				<a-torus-knot radius='0.26' radius-tubular='0.05'>
+					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+				</a-torus-knot>
+			</a-box>			
+		</a-marker>
+		<!-- handle hiro marker -->
+		<!-- 'registerevents' will register event listeners for the marker when it is found and lost,
+		as defined in the inline script above -->
+		<a-marker preset='custom' url='electric.patt' id="electric" registerevents>
+			<a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:blue;'>
+				<a-torus-knot radius='0.26' radius-tubular='0.05'>
+					<a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
+				</a-torus-knot>
+			</a-box>
+		</a-marker>
+
+		<!-- add a simple camera -->
+		<a-entity camera></a-entity>
+	</a-scene>
+</body>
 </html>
